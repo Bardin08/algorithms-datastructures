@@ -1,6 +1,6 @@
 ﻿namespace ShuntingYard;
 
-internal class ShuntingYardProcessor
+public class ShuntingYardProcessor
 {
     public List<string> Parse(List<string> tokens)
     {
@@ -23,7 +23,7 @@ internal class ShuntingYardProcessor
 
                 operators.Push(token[0]);
             }
-            else if (token is ")")
+            else if (token is ")" && operators.Count > 0)
             {
                 queue.Enqueue(operators.Pop().ToString());
             }
