@@ -14,7 +14,10 @@ public class TokenizationProcessor
         {
             var ch = input[index];
 
-            var isNumberNegation = ch is '-' && (index is 0 || tokens.Last().IsOperator());
+            var prevToken = tokens.LastOrDefault();
+            var isNegationSignAllowed = prevToken != null &&
+                                        (prevToken.IsOperator() && token.Length is 0|| prevToken is "(");
+            var isNumberNegation = ch is '-' && (index is 0 || isNegationSignAllowed);
             if (char.IsDigit(ch) || isNumberNegation)
             {
                 token.Append(ch);
@@ -30,6 +33,17 @@ public class TokenizationProcessor
                 decimalSeparatorSeen = true;
             }
             else if (ch.IsOperator())
+            {
+                if (token.Length > 0)
+                {
+                    tokens.Add(token.ToString());
+                    token.Clear();
+                    decimalSeparatorSeen = false;
+                }
+
+                tokens.Add(ch.ToString());
+            }
+            else if (ch is '(' or ')')
             {
                 if (token.Length > 0)
                 {

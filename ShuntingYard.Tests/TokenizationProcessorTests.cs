@@ -61,6 +61,16 @@ public class TokenizationProcessorTests
     }
 
     [Theory]
+    [InlineData("(-10 + -7) + 18", "(", "-10", "+", "-7", ")", "+", "18")]
+    [InlineData("(-10 + (-7)) + 18", "(", "-10", "+", "(", "-7", ")", ")", "+", "18")]
+    [InlineData("((10 + 3 - 7) - 18) + 9", "(", "(", "10", "+", "3", "-", "7", ")", "-", "18", ")", "+", "9")]
+    public void ExpressionWithBrackets_IsValid_Success(string input, params string[] expectedTokens)
+    {
+        var actualTokens = _sut.Tokenize(input);
+        Assert.Equivalent(expectedTokens, actualTokens);
+    }
+
+    [Theory]
     [InlineData("10.6.5+-3.22")]
     public void DoubleNumbers_DecimalPointValidation_Failed(string input)
     {

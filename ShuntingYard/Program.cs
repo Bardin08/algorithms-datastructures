@@ -1,6 +1,6 @@
 ﻿using ShuntingYard;
 
-const string inputString = "-10 + -7";// "3+4+22-111*12-11/23+10";
+const string inputString = "((10 + 3 - 7) - 18) + 9";// "3+4+22-111*12-11/23+10";
 
 Console.WriteLine("Shunting Yard Demo");
 Console.WriteLine(inputString);
@@ -14,6 +14,6 @@ Console.WriteLine("Step 1(Tokenization) result: {0}", string.Join(", ", allToken
 
 var rpnInput = parser.Parse(allTokens);
 Console.WriteLine("Step 2(Shunting) result: {0}", string.Join(", ", rpnInput));
-
+ 
 var result = evaluator.Evaluate(rpnInput);
 Console.WriteLine("Step 3(Evaluation) result: {0}", result);
