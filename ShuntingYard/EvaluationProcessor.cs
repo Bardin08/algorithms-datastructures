@@ -1,6 +1,6 @@
 ﻿namespace ShuntingYard;
 
-internal class EvaluationProcessor
+public class EvaluationProcessor
 {
     public double Evaluate(List<string> rpnTokens)
     {
