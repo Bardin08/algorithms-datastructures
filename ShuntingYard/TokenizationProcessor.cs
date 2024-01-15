@@ -8,6 +8,7 @@ public class TokenizationProcessor
     {
         var tokens = new List<string>();
 
+        var decimalSeparatorSeen = false;
         var token = new StringBuilder();
         for (var index = 0; index < input.Length; index++)
         {
@@ -18,12 +19,23 @@ public class TokenizationProcessor
             {
                 token.Append(ch);
             }
+            else if (ch is '.' or ',')
+            {
+                if (decimalSeparatorSeen)
+                {
+                    throw new Exception($"Invalid expression. Error at {index}");
+                }
+
+                token.Append(ch);
+                decimalSeparatorSeen = true;
+            }
             else if (ch.IsOperator())
             {
                 if (token.Length > 0)
                 {
                     tokens.Add(token.ToString());
                     token.Clear();
+                    decimalSeparatorSeen = false;
                 }
 
                 tokens.Add(ch.ToString());
