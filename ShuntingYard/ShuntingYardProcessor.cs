@@ -23,6 +23,10 @@ internal class ShuntingYardProcessor
 
                 operators.Push(token[0]);
             }
+            else if (token is ")")
+            {
+                queue.Enqueue(operators.Pop().ToString());
+            }
         }
 
         if (operators.Count > 0)
