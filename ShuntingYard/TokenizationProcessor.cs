@@ -2,16 +2,19 @@
 
 namespace ShuntingYard;
 
-internal class TokenizationProcessor
+public class TokenizationProcessor
 {
     public List<string> Tokenize(string input)
     {
         var tokens = new List<string>();
 
         var token = new StringBuilder();
-        foreach (var ch in input)
+        for (var index = 0; index < input.Length; index++)
         {
-            if (char.IsDigit(ch))
+            var ch = input[index];
+
+            var isNumberNegation = ch is '-' && (index is 0 || tokens.Last().IsOperator());
+            if (char.IsDigit(ch) || isNumberNegation)
             {
                 token.Append(ch);
             }

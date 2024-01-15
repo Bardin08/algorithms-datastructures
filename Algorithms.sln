@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShuntingYard", "ShuntingYard\ShuntingYard.csproj", "{73E3EFAD-B783-4878-8009-06126988F297}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShuntingYard.Tests", "ShuntingYard.Tests\ShuntingYard.Tests.csproj", "{F4050EF1-763B-42BF-903D-4D6995A9DE59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{73E3EFAD-B783-4878-8009-06126988F297}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73E3EFAD-B783-4878-8009-06126988F297}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73E3EFAD-B783-4878-8009-06126988F297}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4050EF1-763B-42BF-903D-4D6995A9DE59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4050EF1-763B-42BF-903D-4D6995A9DE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4050EF1-763B-42BF-903D-4D6995A9DE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4050EF1-763B-42BF-903D-4D6995A9DE59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

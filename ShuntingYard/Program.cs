@@ -1,6 +1,6 @@
 ﻿using ShuntingYard;
 
-const string inputString = "3+4+22-111*12-11/23+10";
+const string inputString = "-10 + -7";// "3+4+22-111*12-11/23+10";
 
 Console.WriteLine("Shunting Yard Demo");
 Console.WriteLine(inputString);
