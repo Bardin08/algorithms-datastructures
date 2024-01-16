@@ -8,6 +8,7 @@ public class EvaluationProcessorTests
     [InlineData("10 3 + 7 - 18 * 9 /", 12)]
     [InlineData("10 -3 * 7 + 1.8 * 9.112 /", -4.543459174714662)]
     [InlineData("10 -3 * -7 + 1.8 * 9.112 /", -7.309043020193153)]
+    [InlineData("2 10 ^ 6 2 ^ + 22.5 10 / 99 * 83 ^ -", -7.393841812732971E+194)]
     public void ValidTokensSequence_Success(string input, double expected)
     {
         var rpnTokens = input.Split(' ').ToList();

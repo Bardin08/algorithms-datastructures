@@ -8,6 +8,7 @@ internal static class Helpers
         { '-', 1 },
         { '*', 2 },
         { '/', 2 },
+        { '^', 3 },
     };
 
     public static bool IsOperator(this char @char) => Priority.ContainsKey(@char);

@@ -23,6 +23,7 @@ public class EvaluationProcessor
                     "-" => num1 - num2,
                     "*" => num1 * num2,
                     "/" => num1 / num2,
+                    "^" => Math.Pow(num1, num2),
                     _ => throw new ArgumentOutOfRangeException()
                 };
                 stack.Push(localResult);

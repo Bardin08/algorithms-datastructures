@@ -71,6 +71,17 @@ public class TokenizationProcessorTests
     }
 
     [Theory]
+    [InlineData("2^10 + 6^2 - 22.5 / (10 * 99) ^ 83", "2 ^ 10 + 6 ^ 2 - 22.5 / ( 10 * 99 ) ^ 83")]
+    [InlineData("(2^10 + 6^2)", "( 2 ^ 10 + 6 ^ 2 )")]
+    [InlineData("(2^10 + (9 + 6^2)) ^ 3", "( 2 ^ 10 + ( 9 + 6 ^ 2 ) ) ^ 3")]
+    public void ExpressionWithPowers_IsValid_Success(string input, string expectedTokens)
+    {
+        var expected = expectedTokens.Split(' ');
+        var actualTokens = _sut.Tokenize(input);
+        Assert.Equivalent(expected, actualTokens);
+    }
+
+    [Theory]
     [InlineData("10.6.5+-3.22")]
     public void DoubleNumbers_DecimalPointValidation_Failed(string input)
     {

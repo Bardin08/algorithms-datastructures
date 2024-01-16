@@ -31,7 +31,10 @@ public class ShuntingYardProcessor
 
         if (operators.Count > 0)
         {
-            queue.Enqueue(operators.Pop().ToString());
+            foreach (var op in operators)
+            {
+                queue.Enqueue(op.ToString());
+            }
         }
 
         return queue.ToList();
