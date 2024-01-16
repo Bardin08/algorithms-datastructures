@@ -32,3 +32,24 @@ jobs:
       - name: ✅ Run Unit Tests ✅
         shell: bash
         run: dotnet test
+
+      - name: 📦 Cache SonarCloud Packages 📦
+        uses: actions/cache@v2
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar-${{ hashFiles('**/*.cs') }}
+          restore-keys: ${{ runner.os }}-sonar-
+
+      - name: 🌐 SonarCloud Setup 🌐
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: 📊 SonarCloud Analysis 📊
+        shell: bash
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+          dotnet sonarscanner begin /k:"personal-public-repos_algorithms-and-data-structures" /o:"personal-public-repos" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet build
+          dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
