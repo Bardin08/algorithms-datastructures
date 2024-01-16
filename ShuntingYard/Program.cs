@@ -1,7 +1,6 @@
 ﻿using ShuntingYard;
 
-// const string inputString = "((10 * -3 + (-7)) * 1.8) / 9.112";
-const string inputString = "2^10 + 6^2 - 22.5 / (10 * 99) ^ 83";
+const string inputString = "2 ^ 2 ^ 2";
 
 Console.WriteLine("Shunting Yard Demo");
 Console.WriteLine(inputString);

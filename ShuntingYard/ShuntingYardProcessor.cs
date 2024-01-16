@@ -18,21 +18,44 @@ public class ShuntingYardProcessor
                 while (operators.Count > 0 &&
                        Helpers.Priority[operators.Peek()] >= Helpers.Priority[token[0]])
                 {
-                    queue.Enqueue(operators.Pop().ToString());
+                    var op = operators.Pop();
+                    if (op is '(')
+                    {
+                        continue;
+                    }
+
+                    queue.Enqueue(op.ToString());
                 }
 
                 operators.Push(token[0]);
             }
+            else if (token is "(")
+            {
+                operators.Push(token[0]);
+            }
             else if (token is ")" && operators.Count > 0)
             {
-                queue.Enqueue(operators.Pop().ToString());
+                while (operators.TryPop(out var op))
+                {
+                    if (op is '(')
+                    {
+                        continue;
+                    }
+
+                    queue.Enqueue(op.ToString());
+                }
             }
         }
 
         if (operators.Count > 0)
         {
-            foreach (var op in operators)
+            while (operators.TryPop(out var op))
             {
+                if (op is '(')
+                {
+                    continue;
+                }
+
                 queue.Enqueue(op.ToString());
             }
         }

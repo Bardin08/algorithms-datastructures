@@ -16,7 +16,9 @@ public class TokenizationProcessor
 
             var prevToken = tokens.LastOrDefault();
             var isNegationSignAllowed = prevToken != null &&
-                                        (prevToken.IsOperator() && token.Length is 0|| prevToken is "(");
+                                        token.Length is 0 &&
+                                        (prevToken.IsOperator() || prevToken is "(");
+
             var isNumberNegation = ch is '-' && (index is 0 || isNegationSignAllowed);
             if (char.IsDigit(ch) || isNumberNegation)
             {

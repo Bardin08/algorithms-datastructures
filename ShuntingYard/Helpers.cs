@@ -9,10 +9,20 @@ internal static class Helpers
         { '*', 2 },
         { '/', 2 },
         { '^', 3 },
+        { '(', 0 }
     };
 
-    public static bool IsOperator(this char @char) => Priority.ContainsKey(@char);
-    public static bool IsOperator(this string token) => token.Length is 1 && Priority.ContainsKey(token[0]);
+    private static readonly HashSet<char> Operators =
+    [
+        '+',
+        '-',
+        '*',
+        '/',
+        '^',
+    ];
+
+    public static bool IsOperator(this char @char) => Operators.Contains(@char);
+    public static bool IsOperator(this string token) => token.Length is 1 && Operators.Contains(token[0]);
 
     public static bool IsNumber(this string input) => double.TryParse(input, out _);
 }
