@@ -1,6 +1,6 @@
 ﻿using ShuntingYard;
 
-const string inputString = "2 ^ 2 ^ 2";
+const string inputString = "(2 + 5 * 8) * (4 - 2 / 9)";
 
 Console.WriteLine("Shunting Yard Demo");
 Console.WriteLine(inputString);
