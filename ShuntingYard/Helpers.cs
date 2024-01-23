@@ -22,7 +22,8 @@ internal static class Helpers
     ];
 
     public static bool IsOperator(this char @char) => Operators.Contains(@char);
-    public static bool IsOperator(this string token) => token.Length is 1 && Operators.Contains(token[0]);
+    public static bool IsOperator(this string token) => token.Length is 1 &&
+                                                        Operators.Contains(token[0]);
 
     public static bool IsNumber(this string input) => double.TryParse(input, out _);
 }
