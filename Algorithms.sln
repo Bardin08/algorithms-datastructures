@@ -7,6 +7,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A772A5CA-D392-44AB-9F27-7A12D6121373}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
+		test-data.md = test-data.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{89A85D97-3491-4B49-B36F-454A1CFA48DB}"
