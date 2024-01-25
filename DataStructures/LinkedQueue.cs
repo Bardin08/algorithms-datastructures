@@ -2,7 +2,7 @@
 
 namespace DataStructures;
 
-public class Queue : IEnumerable
+public class LinkedQueue : IEnumerable
 {
     private Node? _head;
     private Node? _tail;
