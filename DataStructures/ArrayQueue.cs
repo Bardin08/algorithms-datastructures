@@ -8,25 +8,27 @@ public class ArrayQueue<T>(int capacity = 4)
 
     public int Count { get; private set; }
 
-    private bool IsFull()
-    {
-        return Count == capacity;
-    }
-
     public void Enqueue(T item)
     {
-        if (IsFull())
-        {
-            capacity = _queue.Length * 2;
-            var arr = new T[_queue.Length * 2]; 
-            Array.Copy(_queue, arr, _queue.Length);
-
-            _queue = arr;
-        }
+        EnsureCapacity();
 
         _tail = (_tail + 1) % capacity;
         _queue[_tail] = item;
         Count++;
+    }
+
+    private void EnsureCapacity()
+    {
+        if (Count != capacity)
+        {
+            return;
+        }
+
+        capacity = _queue.Length * 2;
+        var arr = new T[_queue.Length * 2]; 
+        Array.Copy(_queue, arr, _queue.Length);
+
+        _queue = arr;
     }
 
     public T? Dequeue()
