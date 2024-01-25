@@ -1,4 +1,5 @@
-﻿using DataStructures;
+﻿using System.Diagnostics.CodeAnalysis;
+using DataStructures;
 
 var queue = new ArrayQueue<string>();
 
@@ -18,3 +19,7 @@ Console.WriteLine(queue.Dequeue());
 Console.WriteLine(queue.Dequeue());
 
 Console.WriteLine("Count after dequeue: " + queue.Count);
+
+
+[ExcludeFromCodeCoverage]
+public partial class Program { }
