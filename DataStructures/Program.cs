@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 
 namespace DataStructures;
 
 [ExcludeFromCodeCoverage]
-internal static partial class Program
+internal static class Program
 {
     public static void Main()
     {
