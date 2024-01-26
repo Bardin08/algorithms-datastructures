@@ -15,6 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\pipeline.yml = .github\workflows\pipeline.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures", "DataStructures\DataStructures.csproj", "{F592BD33-6A8A-4D12-B993-EEA3D04FF5D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures.Tests", "DataStructures.Tests\DataStructures.Tests.csproj", "{884BEA36-1679-4D74-95D7-7852DED6DEF6}"
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{983AF995-1058-4746-9064-B800D4591BCD}"
 	ProjectSection(SolutionItems) = preProject
 		.github\CODEOWNERS = .github\CODEOWNERS
@@ -35,6 +38,14 @@ Global
 		{F4050EF1-763B-42BF-903D-4D6995A9DE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4050EF1-763B-42BF-903D-4D6995A9DE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4050EF1-763B-42BF-903D-4D6995A9DE59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F592BD33-6A8A-4D12-B993-EEA3D04FF5D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F592BD33-6A8A-4D12-B993-EEA3D04FF5D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F592BD33-6A8A-4D12-B993-EEA3D04FF5D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F592BD33-6A8A-4D12-B993-EEA3D04FF5D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{884BEA36-1679-4D74-95D7-7852DED6DEF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{884BEA36-1679-4D74-95D7-7852DED6DEF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{884BEA36-1679-4D74-95D7-7852DED6DEF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{884BEA36-1679-4D74-95D7-7852DED6DEF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{983AF995-1058-4746-9064-B800D4591BCD} = {A772A5CA-D392-44AB-9F27-7A12D6121373}
