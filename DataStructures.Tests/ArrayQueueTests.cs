@@ -10,6 +10,8 @@ public class ArrayQueueTests
         queue.Enqueue("1");
         queue.Enqueue("2");
         queue.Enqueue("3");
+        queue.Enqueue("3");
+        queue.Enqueue("3");
 
         Assert.Equal(3, queue.Count);
     }
@@ -22,6 +24,8 @@ public class ArrayQueueTests
         queue.Enqueue("2");
         queue.Enqueue("3");
 
+        queue.Dequeue();
+        queue.Dequeue();
         queue.Dequeue();
         queue.Dequeue();
         queue.Dequeue();
