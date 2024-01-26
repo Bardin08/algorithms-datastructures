@@ -3,7 +3,7 @@
 namespace DataStructures;
 
 [ExcludeFromCodeCoverage]
-internal static partial class Program
+internal static class Program
 {
     public static void Main()
     {
