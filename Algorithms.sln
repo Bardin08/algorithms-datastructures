@@ -15,6 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\pipeline.yml = .github\workflows\pipeline.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{983AF995-1058-4746-9064-B800D4591BCD}"
+	ProjectSection(SolutionItems) = preProject
+		.github\CODEOWNERS = .github\CODEOWNERS
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +36,7 @@ Global
 		{F4050EF1-763B-42BF-903D-4D6995A9DE59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{89A85D97-3491-4B49-B36F-454A1CFA48DB} = {A772A5CA-D392-44AB-9F27-7A12D6121373}
+		{983AF995-1058-4746-9064-B800D4591BCD} = {A772A5CA-D392-44AB-9F27-7A12D6121373}
+		{89A85D97-3491-4B49-B36F-454A1CFA48DB} = {983AF995-1058-4746-9064-B800D4591BCD}
 	EndGlobalSection
 EndGlobal
