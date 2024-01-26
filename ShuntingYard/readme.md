@@ -42,7 +42,5 @@ In this file you can find predefined test cases for validation application corre
 
     // | Input:         (2^10 + (9 + 6^2)) ^ 3
     // | Tokenization:  ["(", "2", "^", "10", "+", "(", "9", "+", "6", "^", "2", ")", ")", "^", "3"]
-    // | Shunting:      ["2", "10", "^", "9", "+", "6", "2", "^", "+", "3", "^"]
+    // | Shunting:      ["2", "10", "^", "9", "6", "2", "^", "+", "+", "3", "^"]
     // | Evaluation:    1221611509
-
-
