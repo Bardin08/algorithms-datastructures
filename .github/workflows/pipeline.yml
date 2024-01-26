@@ -11,6 +11,8 @@ on:
 
 jobs:
   main:
+    if: ${{ github.triggering_actor != 'dependabot[bot]' }}
+
     runs-on: ubuntu-latest
 
     env:
