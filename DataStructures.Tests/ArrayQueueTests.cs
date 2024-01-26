@@ -10,10 +10,10 @@ public class ArrayQueueTests
         queue.Enqueue("1");
         queue.Enqueue("2");
         queue.Enqueue("3");
-        queue.Enqueue("3");
-        queue.Enqueue("3");
+        queue.Enqueue("4");
+        queue.Enqueue("5");
 
-        Assert.Equal(3, queue.Count);
+        Assert.Equal(5, queue.Count);
     }
 
     [Fact]
