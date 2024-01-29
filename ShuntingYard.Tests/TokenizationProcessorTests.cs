@@ -84,6 +84,15 @@ public class TokenizationProcessorTests
     }
 
     [Theory]
+    [InlineData("cos(sin(1) - cos(35 + 34 - 67)) + sin(34)", "cos ( sin ( 1 ) - cos ( 35 + 34 - 67 ) ) + sin ( 34 )")]
+    public void SinCosFunctions_IsValid_Success(string input, string expectedTokens)
+    {
+        var expected = expectedTokens.Split(' ');
+        var actualTokens = _sut.Tokenize(input);
+        Assert.Equivalent(expected, actualTokens);
+    }
+
+    [Theory]
     [InlineData("10.6.5+-3.22")]
     public void DoubleNumbers_DecimalPointValidation_Failed(string input)
     {

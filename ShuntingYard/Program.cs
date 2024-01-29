@@ -18,10 +18,3 @@ Console.WriteLine("Step 2(Shunting) result: {0}", string.Join(" ", rpnInput));
  
 var result = evaluator.Evaluate(rpnInput);
 Console.WriteLine("Step 3(Evaluation) result: {0}", result);
-
-
-Console.WriteLine("\t--===--");
-
-rpnInput = ["1", "sin", "-", "cos", "35", "34", "67", "+", "-", "34", "sin"];
-result = evaluator.Evaluate(rpnInput);
-Console.WriteLine("Step 3(Evaluation) result: {0}", result);
