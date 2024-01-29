@@ -1,6 +1,7 @@
 ﻿using ShuntingYard;
 
-const string inputString = "(2 + 5 * 8) * (4 - 2 / 9)";
+const string inputString = "cos(sin(1) - cos(35 + 34 - 67)) + sin(34)";
+// const string inputString = "(2 + 5 * 8) * (4 - 2 / 9)";
 
 Console.WriteLine("Shunting Yard Demo");
 Console.WriteLine(inputString);
@@ -16,4 +17,11 @@ var rpnInput = parser.Parse(allTokens);
 Console.WriteLine("Step 2(Shunting) result: {0}", string.Join(" ", rpnInput));
  
 var result = evaluator.Evaluate(rpnInput);
+Console.WriteLine("Step 3(Evaluation) result: {0}", result);
+
+
+Console.WriteLine("\t--===--");
+
+rpnInput = ["1", "sin", "-", "cos", "35", "34", "67", "+", "-", "34", "sin"];
+result = evaluator.Evaluate(rpnInput);
 Console.WriteLine("Step 3(Evaluation) result: {0}", result);

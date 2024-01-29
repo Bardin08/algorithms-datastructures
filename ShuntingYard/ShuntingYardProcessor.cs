@@ -13,7 +13,7 @@ public class ShuntingYardProcessor
             {
                 queue.Enqueue(token);
             }
-            else if (token.IsOperator())
+            else if (token.IsOperator() || token.IsFunction())
             {
                 while (operators.Count > 0 &&
                        Helpers.Priority[operators.Peek()] >= Helpers.Priority[token])
@@ -39,7 +39,7 @@ public class ShuntingYardProcessor
                 {
                     if (op is "(")
                     {
-                        continue;
+                        break;
                     }
 
                     queue.Enqueue(op);
