@@ -1,6 +1,7 @@
 ﻿using ShuntingYard;
 
-const string inputString = "(2 + 5 * 8) * (4 - 2 / 9)";
+const string inputString = "cos(sin(1) - cos(35 + 34 - 67)) + sin(34)";
+// const string inputString = "(2 + 5 * 8) * (4 - 2 / 9)";
 
 Console.WriteLine("Shunting Yard Demo");
 Console.WriteLine(inputString);

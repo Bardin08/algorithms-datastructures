@@ -56,6 +56,10 @@ public class TokenizationProcessor
 
                 tokens.Add(ch.ToString());
             }
+            else if (ch is not ' ')
+            {
+                token.Append(ch);
+            }
         }
 
         if (token.Length > 0)

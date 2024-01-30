@@ -4,7 +4,7 @@ public class ShuntingYardProcessor
 {
     public List<string> Parse(List<string> tokens)
     {
-        var operators = new Stack<char>();
+        var operators = new Stack<string>();
         var queue = new Queue<string>();
 
         foreach (var token in tokens)
@@ -13,36 +13,36 @@ public class ShuntingYardProcessor
             {
                 queue.Enqueue(token);
             }
-            else if (token.IsOperator())
+            else if (token.IsOperator() || token.IsFunction())
             {
                 while (operators.Count > 0 &&
-                       Helpers.Priority[operators.Peek()] >= Helpers.Priority[token[0]])
+                       Helpers.Priority[operators.Peek()] >= Helpers.Priority[token])
                 {
                     var op = operators.Pop();
-                    if (op is '(')
+                    if (op is "(")
                     {
                         continue;
                     }
 
-                    queue.Enqueue(op.ToString());
+                    queue.Enqueue(op);
                 }
 
-                operators.Push(token[0]);
+                operators.Push(token);
             }
             else if (token is "(")
             {
-                operators.Push(token[0]);
+                operators.Push(token);
             }
             else if (token is ")" && operators.Count > 0)
             {
                 while (operators.TryPop(out var op))
                 {
-                    if (op is '(')
+                    if (op is "(")
                     {
-                        continue;
+                        break;
                     }
 
-                    queue.Enqueue(op.ToString());
+                    queue.Enqueue(op);
                 }
             }
         }
@@ -51,14 +51,14 @@ public class ShuntingYardProcessor
         {
             while (operators.TryPop(out var op))
             {
-                if (op is '(')
+                if (op is "(")
                 {
                     continue;
                 }
 
-                queue.Enqueue(op.ToString());
+                queue.Enqueue(op);
             }
-        }
+        } 
 
         return queue.ToList();
     }

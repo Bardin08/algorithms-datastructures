@@ -28,6 +28,19 @@ public class EvaluationProcessor
                 };
                 stack.Push(localResult);
             }
+            else if (token.IsFunction())
+            {
+                var num = stack.Pop();
+
+                var localResult = token switch
+                {
+                    "sin" => Math.Sin(num),
+                    "cos" => Math.Cos(num),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+
+                stack.Push(localResult);
+            }
         }
 
         return stack.Pop();
