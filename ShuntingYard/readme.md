@@ -51,3 +51,8 @@ In this file you can find predefined test cases for validation application corre
     // | Tokenization:  cos ( sin ( 1 ) - cos ( 35 + 34 - 67 ) ) + sin ( 34 )
     // | Shunting:      1 sin 35 34 + 67 - cos - cos 34 sin +
     // | Evaluation:    0.8371667739123354
+
+    // | Input:         sin(1) + cos(3)
+    // | Tokenization:  sin ( 1 ) + cos ( 3 )
+    // | Shunting:      1 sin 3 cos +
+    // | Evaluation:    -0.1485215117925489
