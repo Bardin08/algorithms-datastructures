@@ -18,7 +18,7 @@ var startPoint = new Point(2, 2);
 var endPoint = new Point(12, 0);
 var endPoint1 = new Point(92, 7);
 
-var pathFinder = new BfsPathFinder();
+var pathFinder = new AStarPathFinder();
 var shortestPath = pathFinder
     .GetShortestPath(map, startPoint, endPoint)
     .ToList();
