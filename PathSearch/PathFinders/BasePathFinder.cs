@@ -6,6 +6,9 @@ namespace PathSearch.PathFinders;
 
 public abstract class BasePathFinder : IPathFinder, ITypedObservable<PathFinderState>
 {
+    private static readonly int[] DirectionsRow = [-1, 1, 0, 0]; // Up, Down
+    private static readonly int[] DirectionsCol = [0, 0, -1, 1]; // Left, Right
+
     private readonly List<ITypedObserver<PathFinderState>> _observers = 
     [
         new PathFinderObserver()
@@ -19,9 +22,9 @@ public abstract class BasePathFinder : IPathFinder, ITypedObservable<PathFinderS
         var state = new PathFinderState
         {
             Name = GetType().Name,
-            Map = DeepCopier.Copy(maze),
             Start = start,
             End = end,
+            Map = DeepCopier.Copy(maze),
             Path = DeepCopier.Copy(path),
             NodesVisited = breadcrumbs.Count
         };
@@ -53,14 +56,10 @@ public abstract class BasePathFinder : IPathFinder, ITypedObservable<PathFinderS
     {
         var neighbors = new List<Point>();
 
-        // Directions arrays represent the relative movements in the 2D grid
-        int[] dRow = [-1, 1, 0, 0]; // Up, Down
-        int[] dCol = [0, 0, -1, 1]; // Left, Right
-
-        for (var i = 0; i < 4; i++) // Since there are 4 possible directions
+        for (var i = 0; i < 4; i++)
         {
-            var newRow = point.Row + dRow[i];
-            var newCol = point.Column + dCol[i];
+            var newRow = point.Row + DirectionsRow[i];
+            var newCol = point.Column + DirectionsCol[i];
 
             // Check bounds and if the new position is a path
             if (newCol >= 0 && newCol < maze.GetLength(0) &&
