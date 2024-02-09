@@ -2,14 +2,14 @@
 using PathSearch.MapGenerator;
 using PathSearch.PathFinders;
 
-var mapGenerator = new MapGenerator(
-    new MapGeneratorOptions
-    {
-        Height = 10,
-        Width = 100,
-        Noise = 0.2f,
-        Seed = 10233
-    });
+var generatorOptions = new MapGeneratorOptions
+{
+    Height = 10,
+    Width = 100,
+    Noise = 0.2f,
+    Seed = 10233
+};
+var mapGenerator = new MapGenerator(generatorOptions);
 
 var map = mapGenerator.Generate()!;
 Console.Write(MapPrinter.GetFilledStringBuilder(map, []).ToString());
