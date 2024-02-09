@@ -2,45 +2,12 @@
 
 namespace PathSearch.PathFinders;
 
-public class DijkstraPathFinder : BasePathFinder
+public class DijkstraPathFinder(bool useEarlyExit = true) : BaseHeuristicPathFinder(useEarlyExit)
 {
-    protected override Dictionary<Point, Point?> GetShortestPathInternal(
-        string[,] maze, Point start, Point end)
-    {
-        var frontier = new PriorityQueue<Point, int>();
-        var path = new Dictionary<Point, Point?>();
-        var costs = new Dictionary<Point, int>();
-
-        path[start] = null;
-        costs[start] = 0;
-        frontier.Enqueue(start, 0);
-
-        while (frontier.Count != 0)
-        {
-            var current = frontier.Dequeue();
-            var neighbours = GetNeighbours(maze, current);
-
-            if (current.Equals(end))
-            {
-                break;
-            }
-
-            foreach (var next in neighbours.Where(next => !path.ContainsKey(next)))
-            {
-                var newCost = costs[current] + GetCost(current, next);
-                if (costs.TryGetValue(next, out var value) && newCost >= value)
-                {
-                    continue;
-                }
-
-                costs[next] = newCost;
-                frontier.Enqueue(next, newCost);
-                path[next] = current;
-            }
-        }
-
-        return path;
-    }
-
-    private int GetCost(Point current, Point next) => 1;
+    // Overrides Heuristic to fulfill base class requirements.
+    // Dijkstra's algorithm doesn't use a heuristic (it examines all paths for the shortest one),
+    // but the method returns a constant to fit into a heuristic-based framework without influencing the algorithm's logic.
+    //
+    // This approach also ensures compliance with code quality checks that expect less than 3% code duplication.
+    protected override int Heuristic(Point p1, Point p2) => 1;
 }

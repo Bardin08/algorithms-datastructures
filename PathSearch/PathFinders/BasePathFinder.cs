@@ -4,7 +4,7 @@ using PathSearch.PathFinders.Statistics;
 
 namespace PathSearch.PathFinders;
 
-public abstract class BasePathFinder : IPathFinder, ITypedObservable<PathFinderState>
+public abstract class BasePathFinder(bool useEarlyExit) : IPathFinder, ITypedObservable<PathFinderState>
 {
     private static readonly int[] DirectionsRow = [-1, 1, 0, 0]; // Up, Down
     private static readonly int[] DirectionsCol = [0, 0, -1, 1]; // Left, Right
@@ -13,6 +13,8 @@ public abstract class BasePathFinder : IPathFinder, ITypedObservable<PathFinderS
     [
         new PathFinderObserver()
     ];
+
+    protected bool EarlyExit { get; } = useEarlyExit;
 
     public IEnumerable<Point> GetShortestPath(string[,] maze, Point start, Point end)
     {
