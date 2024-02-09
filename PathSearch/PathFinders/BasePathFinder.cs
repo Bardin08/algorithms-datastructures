@@ -1,19 +1,40 @@
-﻿using PathSearch.MapGenerator;
+﻿using DeepCopy;
+using PathSearch.MapGenerator;
+using PathSearch.PathFinders.Statistics;
 
 namespace PathSearch.PathFinders;
 
-public abstract class BasePathFinder : IPathFinder
+public abstract class BasePathFinder : IPathFinder, ITypedObservable<PathFinderState>
 {
+    private readonly List<ITypedObserver<PathFinderState>> _observers = 
+    [
+        new PathFinderObserver()
+    ];
+
     public IEnumerable<Point> GetShortestPath(string[,] maze, Point start, Point end)
     {
         var breadcrumbs = GetShortestPathInternal(maze, start, end);
-        return RestorePath(breadcrumbs, start, end);
+        var path = RestorePath(breadcrumbs, start, end);
+
+        var state = new PathFinderState
+        {
+            Name = GetType().Name,
+            Map = DeepCopier.Copy(maze),
+            Start = start,
+            End = end,
+            Path = DeepCopier.Copy(path),
+            NodesVisited = breadcrumbs.Count
+        };
+
+        Notify(state);
+        return path;
     }
 
     protected abstract Dictionary<Point, Point?> GetShortestPathInternal(
         string[,] maze, Point start, Point end);
 
-    private IEnumerable<Point> RestorePath(IReadOnlyDictionary<Point, Point?> dictionary, Point start, Point dest)
+    private List<Point> RestorePath(
+        IReadOnlyDictionary<Point, Point?> dictionary, Point start, Point dest)
     {
         var restoredPath = new List<Point>();
 
@@ -51,5 +72,15 @@ public abstract class BasePathFinder : IPathFinder
         }
 
         return neighbors;
+    }
+
+    public void Subscribe(ITypedObserver<PathFinderState> observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void Notify(PathFinderState observable)
+    {
+        _observers.ForEach(x => x.Handle(observable));
     }
 }

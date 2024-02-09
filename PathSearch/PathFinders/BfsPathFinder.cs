@@ -2,7 +2,7 @@
 
 namespace PathSearch.PathFinders;
 
-public class BfsPathFinder : BasePathFinder
+public class BfsPathFinder(bool useEarlyExit) : BasePathFinder
 {
     protected override Dictionary<Point, Point?> GetShortestPathInternal(
         string[,] maze, Point start, Point end)
@@ -17,8 +17,8 @@ public class BfsPathFinder : BasePathFinder
         {
             var current = frontier.Dequeue();
             var neighbours = GetNeighbours(maze, current);
-
-            if (current.Equals(end))
+            
+            if (useEarlyExit && current.Equals(end))
             {
                 break;
             }

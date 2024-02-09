@@ -1,4 +1,5 @@
-﻿using PathSearch.MapGenerator;
+﻿using DeepCopy;
+using PathSearch.MapGenerator;
 using PathSearch.PathFinders;
 
 var mapGenerator = new MapGenerator(
@@ -10,17 +11,19 @@ var mapGenerator = new MapGenerator(
         Seed = 10233
     });
 
-var printer = new MapPrinter();
-
 var map = mapGenerator.Generate()!;
-
+Console.Write(MapPrinter.GetFilledStringBuilder(map, []).ToString());
 var startPoint = new Point(2, 2);
-var endPoint = new Point(12, 0);
-var endPoint1 = new Point(92, 7);
+var endPoint = new Point(73, 7);
 
-var pathFinder = new AStarPathFinder();
-var shortestPath = pathFinder
-    .GetShortestPath(map, startPoint, endPoint)
-    .ToList();
+var bfsPathFinderEarlyExit = new BfsPathFinder(useEarlyExit: true);
+_ = bfsPathFinderEarlyExit.GetShortestPath(DeepCopier.Copy(map), startPoint, endPoint);
 
-printer.Print(map, shortestPath, startPoint, endPoint);
+var bfsPathFinderNoEarlyExit = new BfsPathFinder(useEarlyExit: false);
+_ = bfsPathFinderNoEarlyExit.GetShortestPath(DeepCopier.Copy(map), startPoint, endPoint);
+
+var dijkstraPathFinder = new DijkstraPathFinder();
+_ = dijkstraPathFinder.GetShortestPath(DeepCopier.Copy(map), startPoint, endPoint);
+
+var aStarPathFinder = new AStarPathFinder();
+_ = aStarPathFinder.GetShortestPath(DeepCopier.Copy(map), startPoint, endPoint);

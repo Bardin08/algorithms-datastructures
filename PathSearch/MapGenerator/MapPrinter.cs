@@ -1,43 +1,47 @@
-﻿namespace PathSearch.MapGenerator;
+﻿using System.Text;
 
-public class MapPrinter
+namespace PathSearch.MapGenerator;
+
+public static class MapPrinter
 {
-    public void Print(string[,] maze, List<Point> points, Point start, Point end)
+    public static StringBuilder GetFilledStringBuilder(string[,] maze, List<Point> points,
+        Point? start = null, Point? end = null)
     {
+        var sb = new StringBuilder();
         points.ForEach(p => maze[p.Column, p.Row] = "·");
 
-        maze[start.Column, start.Row] = "S";
-        maze[end.Column, end.Row] = "X";
-        
-        PrintTopLine();
+        if (start != null) maze[start.Value.Column, start.Value.Row] = "S";
+        if (end != null) maze[end.Value.Column, end.Value.Row] = "X";
+
+        PrintTopLine(sb);
         for (var row = 0; row < maze.GetLength(1); row++)
         {
-            Console.Write($"{row}\t");
+            sb.Append($"{row}\t");
             for (var column = 0; column < maze.GetLength(0); column++)
             {
-                Console.Write(maze[column, row]);
+                sb.Append(maze[column, row]);
             }
 
-            Console.WriteLine();
+            sb.AppendLine();
         }
 
-        return;
+        return sb;
 
-        void PrintTopLine()
+        void PrintTopLine(StringBuilder stringBuilder)
         {
-            Console.Write(" \t");
+            stringBuilder.Append(" \t");
             for (var i = 0; i < maze.GetLength(0); i++)
             {
-                Console.Write(i % 10 == 0 ? i / 10 : " ");
+                stringBuilder.Append(i % 10 == 0 ? i / 10 : " ");
             }
 
-            Console.Write("\n \t");
+            stringBuilder.Append("\n \t");
             for (var i = 0; i < maze.GetLength(0); i++)
             {
-                Console.Write(i % 10);
+                stringBuilder.Append(i % 10);
             }
 
-            Console.WriteLine("\n");
+            stringBuilder.AppendLine("\n");
         }
     }
 }
