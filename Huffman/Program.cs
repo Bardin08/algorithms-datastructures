@@ -1,114 +1,88 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 
-const string filePath = "./Resources/sherlock.txt";
-var charsDistribution = GetCharsDistribution(filePath);
-var treeRoot = GetBinaryTreeRoot(charsDistribution);
+namespace Huffman;
 
-var huffmanMapping = new Dictionary<string, string>();
-TraverseTree(treeRoot, string.Empty, huffmanMapping);
-PrintHuffmanTable(huffmanMapping);
-
-var text = EncodeText(filePath, huffmanMapping);
-Console.WriteLine(string.Join("", text.Take(100)));
-
-string EncodeText(string srcFilePath, Dictionary<string, string> huffmanMap)
+internal static class Program
 {
-    var sb = new StringBuilder();
-    var allText = File.ReadAllText(srcFilePath);
-    foreach (var c in allText)
+    public static void Main()
     {
-        sb.Append(huffmanMap[c.ToString()]);
+        const string filePath = "./Resources/sherlock (1).txt";
+        const string encodedFilePath = "./Resources/encoded.txt";
+
+        Executor.ExecuteWithStopwatch(
+            FullFlow, "Assignment 4, the Full Flow!",
+            throwException: false, args: [filePath, encodedFilePath]);
     }
 
-    return sb.ToString();
-}
-
-return;
-
-
-Dictionary<char, int> GetCharsDistribution(string srcFilePath)
-{
-    var fileText = File.ReadAllText(srcFilePath);
-
-    var ints = new Dictionary<char, int>();
-    foreach (var c in fileText)
+    private static void FullFlow(string filePath, string encodedFilePath)
     {
-        if (!ints.TryAdd(c, 1))
-            ints[c]++;
+        var charsDistribution = Executor.ExecuteWithStopwatch(
+            action: GetCharsDistribution,
+            operationName: nameof(GetCharsDistribution),
+            throwException:false,
+            args: filePath)!;
+
+        var huffmanTable = Executor.ExecuteWithStopwatch(
+            action: GetHuffmanTable,
+            operationName: nameof(GetHuffmanTable),
+            throwException:false,
+            args: [charsDistribution, false])!;
+
+        var encodedContent = Executor.ExecuteWithStopwatch(
+            action: EncodeFile,
+            operationName: nameof(EncodeFile),
+            throwException:false,
+            args: [filePath, huffmanTable])!;
+
+        Executor.ExecuteWithStopwatch(
+            action: StreamExtensions.WriteStreamToFile,
+            operationName: nameof(StreamExtensions.WriteStreamToFile),
+            throwException:false,
+            args: [encodedContent, encodedFilePath]);
     }
 
-    return ints;
-}
 
-BinTreeNode GetBinaryTreeRoot(Dictionary<char, int> distribution)
-{
-    var treeNodes = new PriorityQueue<BinTreeNode, int>();
-    foreach (var kvp in distribution)
+    private static Dictionary<char, int> GetCharsDistribution(string s)
     {
-        var node = new BinTreeNode
+        var fileReader = new HuffmanFileReader();
+        var dictionary = fileReader.GetCharactersDistribution(s);
+        return dictionary;
+    }
+
+    private static Dictionary<char, string> GetHuffmanTable(Dictionary<char, int> ints, bool printTable)
+    {
+        var huffmanProcessor = new HuffmanProcessor();
+        var treeRoot = huffmanProcessor.BuildBinaryTree(ints);
+
+        var table = new Dictionary<char, string>();
+        huffmanProcessor.TraverseTree(treeRoot, string.Empty, table);
+
+        if (printTable)
         {
-            Value = kvp.Key.ToString(),
-            Entries = kvp.Value
-        };
-        treeNodes.Enqueue(node, node.Entries);
-    }
-
-    BuildBinaryTree(treeNodes);
-
-    var binTreeNode = treeNodes.Dequeue();
-    return binTreeNode;
-}
-
-void BuildBinaryTree(PriorityQueue<BinTreeNode, int> nodes)
-{
-    while (nodes.Count > 1)
-    {
-        var node1 = nodes.Dequeue();
-        var node2 = nodes.Dequeue();
-
-        var node = new BinTreeNode
-        {
-            Value = node1.Value + node2.Value,
-            Entries = node1.Entries + node2.Entries,
-            Left = node1,
-            Right = node2
-        };
-        nodes.Enqueue(node, node.Entries);
-    }
-}
-
-void TraverseTree(
-    BinTreeNode? root,
-    string identifier,
-    IDictionary<string, string> huffmanTable)
-{
-    if (root is not null)
-    {
-        if (root.Value.Length is 1)
-        {
-            huffmanTable[root.Value] = identifier;
+            Logger.LogHuffmanTable(table);
         }
 
-        TraverseTree(root.Left, identifier + "0", huffmanTable);
-        TraverseTree(root.Right, identifier + "1", huffmanTable);
+        return table;
     }
+
+    private static MemoryStream EncodeFile(string filePath1, Dictionary<char, string> huffmanTable1) =>
+        new HuffmanEncoder().EncodeFile(filePath1, huffmanTable1);
 }
 
-void PrintHuffmanTable(Dictionary<string, string> dictionary)
-{
-    Console.WriteLine("Symbol\tHuffman Code");
-    Console.WriteLine("--------------------");
-    foreach (var item in dictionary)
-    {
-        Console.WriteLine($"{item.Key}\t{item.Value}");
-    }
-}
 
-internal class BinTreeNode
-{
-    public required string Value { get; set; }
-    public string Identifier { get; set; } = null!;
-    public int Entries { get; set; }
-    public BinTreeNode? Left { get; set; }
-    public BinTreeNode? Right { get; set; }
-}
+
+
+// using var decodedStream = new HuffmanEncoder().DecodeFile(encodedFilePath, huffmanTable);
+
+// var totalRead = 0;
+// var buffer = new byte[1024 * 4];
+// while (totalRead < decodedStream.Length)
+// {
+// var readBytes = decodedStream.Read(buffer, 0, buffer.Length);
+// totalRead += readBytes;
+
+// Console.Write(Encoding.UTF8.GetString(buffer[..readBytes]));
+// }
+
+// Console.ReadLine();
