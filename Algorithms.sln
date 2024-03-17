@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{983A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathSearch", "PathSearch\PathSearch.csproj", "{D2780C92-4A67-4EDB-A3B3-9443125C8261}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Huffman", "Huffman\Huffman.csproj", "{E5BBD7FB-93FB-4E15-B195-656AB49200BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{D2780C92-4A67-4EDB-A3B3-9443125C8261}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2780C92-4A67-4EDB-A3B3-9443125C8261}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2780C92-4A67-4EDB-A3B3-9443125C8261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5BBD7FB-93FB-4E15-B195-656AB49200BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5BBD7FB-93FB-4E15-B195-656AB49200BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5BBD7FB-93FB-4E15-B195-656AB49200BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5BBD7FB-93FB-4E15-B195-656AB49200BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{983AF995-1058-4746-9064-B800D4591BCD} = {A772A5CA-D392-44AB-9F27-7A12D6121373}
