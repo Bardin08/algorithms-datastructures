@@ -44,4 +44,23 @@ public static class StreamExtensions
             File.Delete(filePath);
         }
     }
+
+    public static StreamWriter WriteStreamToFileWithTransformation(
+        this Stream fileStream,
+        Dictionary<char, string> huffmanTable,
+        Action<TextWriter, byte[], int, Dictionary<char, string>> action)
+    {
+        var totalRead = 0;
+        var buffer = new byte[1024 * 1024 * 4];
+        var destinationStream = new StreamWriter(new MemoryStream());
+        while (totalRead < fileStream.Length)
+        {
+            var bytesRead = fileStream.Read(buffer);
+            totalRead += bytesRead;
+
+            action(destinationStream, buffer, bytesRead, huffmanTable);
+        }
+
+        return destinationStream;
+    }
 }

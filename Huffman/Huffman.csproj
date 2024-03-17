@@ -17,4 +17,8 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Lorem.Universal.NET" Version="4.0.80" />
+    </ItemGroup>
+
 </Project>

@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Text;
-
-namespace Huffman;
+﻿namespace Huffman;
 
 internal static class Program
 {
@@ -27,7 +24,7 @@ internal static class Program
             action: GetHuffmanTable,
             operationName: nameof(GetHuffmanTable),
             throwException:false,
-            args: [charsDistribution, false])!;
+            args: [charsDistribution, false, false])!;
 
         var encodedContent = Executor.ExecuteWithStopwatch(
             action: EncodeFile,
@@ -37,9 +34,22 @@ internal static class Program
 
         Executor.ExecuteWithStopwatch(
             action: StreamExtensions.WriteStreamToFile,
-            operationName: nameof(StreamExtensions.WriteStreamToFile),
+            operationName: nameof(StreamExtensions.WriteStreamToFileWithTransformation),
             throwException:false,
             args: [encodedContent, encodedFilePath]);
+
+        var decodedContent = Executor.ExecuteWithStopwatch(
+            action: (string path, Dictionary<char, string> huffman) =>
+                new HuffmanEncoder().DecodeFile(path, huffman),
+            operationName: "Decode the file!",
+            throwException:false,
+            args: [encodedFilePath, huffmanTable])!;
+
+        Executor.ExecuteWithStopwatch(
+            action: (Stream stream, string path) => stream.WriteStreamToFile(path),
+            operationName: "Save to file!",
+            throwException:false,
+            args: [decodedContent, "./Resources/decoded.txt"]);
     }
 
 
@@ -50,10 +60,16 @@ internal static class Program
         return dictionary;
     }
 
-    private static Dictionary<char, string> GetHuffmanTable(Dictionary<char, int> ints, bool printTable)
+    private static Dictionary<char, string> GetHuffmanTable(
+        Dictionary<char, int> ints, bool printTree = false, bool printTable = false)
     {
         var huffmanProcessor = new HuffmanProcessor();
         var treeRoot = huffmanProcessor.BuildBinaryTree(ints);
+
+        if (printTree)
+        {
+            Logger.PrintTree(treeRoot, "\t");
+        }
 
         var table = new Dictionary<char, string>();
         huffmanProcessor.TraverseTree(treeRoot, string.Empty, table);
@@ -84,5 +100,3 @@ internal static class Program
 
 // Console.Write(Encoding.UTF8.GetString(buffer[..readBytes]));
 // }
-
-// Console.ReadLine();

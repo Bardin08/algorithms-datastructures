@@ -20,30 +20,24 @@ public class HuffmanEncoder : IEncoder
 
         using var fileStream = File.OpenRead(filePath);
 
-        var totalRead = 0;
+        var resultStream = fileStream.WriteStreamToFileWithTransformation(
+            huffmanMap, MapCharWithHuffmanCode);
 
-        var buffer = new byte[1024 * 1024 * 4];
-        var resultStream = new StreamWriter(new MemoryStream());
-        while (totalRead < fileStream.Length)
-        {
-            try
-            {
-                var bytesRead = fileStream.Read(buffer);
-                totalRead += bytesRead;
-                
-                foreach (var ch in buffer[..bytesRead])
-                {
-                    resultStream.Write(huffmanMap[(char)ch]);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
-
+        resultStream.Flush();
         resultStream.BaseStream.Seek(0, SeekOrigin.Begin);
         return (resultStream.BaseStream as MemoryStream)!;
+    }
+
+    private static void MapCharWithHuffmanCode(
+        TextWriter resultStream,
+        byte[] buffer,
+        int bytesRead,
+        Dictionary<char, string> huffmanMap)
+    {
+        foreach (var ch in buffer[..bytesRead])
+        {
+            resultStream.Write(huffmanMap[(char)ch]);
+        }
     }
 
     public MemoryStream DecodeFile(string filePath, Dictionary<char, string> huffmanMap)
@@ -68,7 +62,7 @@ public class HuffmanEncoder : IEncoder
 
         var invertedHuffmanMap = huffmanMap.ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
 
-        var buffer = new char[256];
+        var buffer = new char[1024 * 1024 * 4];
         var sb = new StringBuilder(16);
         while (!streamReader.EndOfStream)
         {
@@ -85,6 +79,7 @@ public class HuffmanEncoder : IEncoder
             }
         }
 
+        streamWriter.Flush();
         streamWriter.BaseStream.Seek(0, SeekOrigin.Begin);
         return (MemoryStream)streamWriter.BaseStream;
     }
