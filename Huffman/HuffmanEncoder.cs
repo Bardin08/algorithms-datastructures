@@ -58,6 +58,7 @@ public class HuffmanEncoder : IEncoder
         StreamReader streamReader,
         Dictionary<char, string> huffmanMap)
     {
+        var progressBar = new ProgressBar(streamReader.BaseStream.Length, "\t");
         var streamWriter = new StreamWriter(new MemoryStream());
 
         var invertedHuffmanMap = huffmanMap.ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
@@ -77,8 +78,11 @@ public class HuffmanEncoder : IEncoder
                     sb.Clear();
                 }
             }
+
+            progressBar.Update(charsRead);
         }
 
+        progressBar.Finish();
         streamWriter.Flush();
         streamWriter.BaseStream.Seek(0, SeekOrigin.Begin);
         return (MemoryStream)streamWriter.BaseStream;

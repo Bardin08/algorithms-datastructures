@@ -4,12 +4,21 @@ internal static class Program
 {
     public static void Main()
     {
-        const string filePath = "./Resources/sherlock (1).txt";
+        const string filePath = "./Resources/1gb.txt";
         const string encodedFilePath = "./Resources/encoded.txt";
 
-        Executor.ExecuteWithStopwatch(
-            FullFlow, "Assignment 4, the Full Flow!",
-            throwException: false, args: [filePath, encodedFilePath]);
+
+
+        // try
+        // {
+        //     Executor.ExecuteWithStopwatch(
+        //         FullFlow, "Assignment 4, the Full Flow!",
+        //         throwException: true, args: [filePath, encodedFilePath]);
+        // }
+        // catch (Exception e)
+        // {
+        //     Console.WriteLine(e.ToString());
+        // }
     }
 
     private static void FullFlow(string filePath, string encodedFilePath)
@@ -85,18 +94,3 @@ internal static class Program
     private static MemoryStream EncodeFile(string filePath1, Dictionary<char, string> huffmanTable1) =>
         new HuffmanEncoder().EncodeFile(filePath1, huffmanTable1);
 }
-
-
-
-
-// using var decodedStream = new HuffmanEncoder().DecodeFile(encodedFilePath, huffmanTable);
-
-// var totalRead = 0;
-// var buffer = new byte[1024 * 4];
-// while (totalRead < decodedStream.Length)
-// {
-// var readBytes = decodedStream.Read(buffer, 0, buffer.Length);
-// totalRead += readBytes;
-
-// Console.Write(Encoding.UTF8.GetString(buffer[..readBytes]));
-// }
