@@ -15,10 +15,13 @@
       <None Update="Resources\sherlock (1).txt">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="Resources\src_245mb.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Lorem.Universal.NET" Version="4.0.80" />
+      <PackageReference Include="LoremGen" Version="1.0.0" />
     </ItemGroup>
 
 </Project>
