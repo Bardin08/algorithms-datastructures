@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Bardin08.ProgressBar" Version="1.0.0" />
       <PackageReference Include="LoremGen" Version="1.0.0" />
     </ItemGroup>
 

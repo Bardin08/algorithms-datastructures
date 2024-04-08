@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Bardin08.ProgressBar;
 
 namespace Huffman;
 
@@ -58,7 +59,7 @@ public class HuffmanEncoder : IEncoder
         StreamReader streamReader,
         Dictionary<char, string> huffmanMap)
     {
-        var progressBar = new ProgressBar(streamReader.BaseStream.Length, "\t");
+        var progressBar = new ProgressBar(streamReader.BaseStream.Length, new ProgressBarOptions());
         var streamWriter = new StreamWriter(new MemoryStream());
 
         var invertedHuffmanMap = huffmanMap.ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
